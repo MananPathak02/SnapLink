@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SnapLink — Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}" />
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="logo">snap<span>link</span></a>
+  <div class="nav-right">
+    <span class="user-badge">logged in as <strong id="userEmail">—</strong></span>
+    <button class="btn-logout" onclick="logout()">Logout</button>
+  </div>
+</nav>
+
+<!-- LAYOUT -->
+<div class="layout">
+
+  <!-- STATS STRIP -->
+  <div class="stats-strip">
+    <div class="stat-card">
+      <div class="label">TOTAL LINKS</div>
+      <div class="value" id="totalLinks">—</div>
+      <div class="sub">all time</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">TOTAL CLICKS</div>
+      <div class="value" id="totalClicks">—</div>
+      <div class="sub">across all links</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">ACTIVE LINKS</div>
+      <div class="value" id="activeLinks">—</div>
+      <div class="sub">not expired</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">RATE LIMIT</div>
+      <div class="value" id="rateRemaining">—</div>
+      <div class="sub">shortens left this hour</div>
+    </div>
+  </div>
+
+  <!-- SHORTEN PANEL -->
+  <div class="shorten-panel">
+    <div class="shorten-row">
+      <input id="pUrl"    class="panel-input url"    type="url"    placeholder="https://paste-your-long-url-here.com" />
+      <input id="pCode"   class="panel-input code"   type="text"   placeholder="custom code"   maxlength="20"/>
+      <input id="pExpire" class="panel-input expire" type="number" placeholder="expire (hrs)" min="1"/>
+      <button class="btn-go" id="pBtn" onclick="shortenLink()">Shorten →</button>
+    </div>
+    <div class="panel-feedback" id="pFeedback"></div>
+    <div class="rate-bar-wrap">
+      <div class="rate-bar-bg"><div class="rate-bar-fill" id="rateBarFill" style="width:100%"></div></div>
+      <span class="rate-label" id="rateBarLabel">— / 10 shortens used</span>
+    </div>
+  </div>
+
+  <!-- LINKS TABLE -->
+  <div class="table-header">
+    <h2>Your Links</h2>
+    <input class="search-input" type="text" placeholder="Search links…" oninput="filterTable(this.value)" />
+  </div>
+  <table class="links-table" id="linksTable">
+    <thead>
+      <tr>
+        <th>SHORT CODE</th>
+        <th>DESTINATION</th>
+        <th>CLICKS</th>
+        <th>STATUS</th>
+        <th>CREATED</th>
+        <th>ACTIONS</th>
+      </tr>
+    </thead>
+    <tbody id="linksBody">
+      <tr><td colspan="6"><div class="modal-loading">Loading your links…</div></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ANALYTICS MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <div class="modal-head">
+      <h3>Analytics — <span id="modalCode">—</span></h3>
+      <button class="modal-close" onclick="closeModalDirect()">✕</button>
+    </div>
+    <div class="modal-body" id="modalBody">
+      <div class="modal-loading">Loading analytics…</div>
+    </div>
+  </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SnapLink — Login / Register</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}" />
+</head>
+<body>
+<div class="glow"></div>
+
+<nav>
+  <a href="index.html" class="logo">snap<span>link</span></a>
+  <a href="index.html" class="back">← Back to home</a>
+</nav>
+
+<main>
+  <div class="auth-card">
+    <!-- TABS -->
+    <div class="tabs">
+      <button class="tab-btn active" id="tabLogin" onclick="switchTab('login')">Login</button>
+      <button class="tab-btn" id="tabRegister" onclick="switchTab('register')">Register</button>
+    </div>
+
+    <!-- LOGIN FORM -->
+    <div id="loginForm">
+      <div class="form-title">Welcome back.</div>
+      <div class="form-sub">Login to manage your links and view analytics.</div>
+
+      <div class="field">
+        <label>EMAIL</label>
+        <input type="email" id="loginEmail" placeholder="you@example.com" />
+      </div>
+      <div class="field">
+        <label>PASSWORD</label>
+        <div class="password-wrap">
+          <input type="password" id="loginPw" placeholder="••••••••" />
+          <button class="toggle-pw" onclick="togglePw('loginPw', this)">👁</button>
+        </div>
+      </div>
+      <button class="btn-submit" id="loginBtn" onclick="doLogin()">Login →</button>
+      <div class="feedback" id="loginFeedback"></div>
+    </div>
+
+    <!-- REGISTER FORM -->
+    <div id="registerForm">
+      <div class="form-title">Create account.</div>
+      <div class="form-sub">Free forever. No credit card required.</div>
+
+      <div class="field">
+        <label>EMAIL</label>
+        <input type="email" id="regEmail" placeholder="you@example.com" />
+      </div>
+      <div class="field">
+        <label>PASSWORD</label>
+        <div class="password-wrap">
+          <input type="password" id="regPw" placeholder="Min. 8 characters"
+            oninput="checkStrength(this.value)" />
+          <button class="toggle-pw" onclick="togglePw('regPw', this)">👁</button>
+        </div>
+        <div class="strength-bar"><div class="strength-fill" id="strengthFill"></div></div>
+      </div>
+      <button class="btn-submit" id="registerBtn" onclick="doRegister()">Create Account →</button>
+      <div class="feedback" id="registerFeedback"></div>
+    </div>
+  </div>
+</main>
+
+<script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+
+</body>
+</html>

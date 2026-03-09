@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SnapLink — Shrink. Track. Share.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}" />
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="logo">snap<span>link</span></a>
+  <div class="nav-links">
+    <a href="auth.html" class="nav-link">Login</a>
+    <a href="auth.html" class="nav-link nav-cta">Get Started</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">⚡ FAST · SECURE · TRACKED</div>
+  <h1>Shrink URLs.<br><em>Track Everything.</em></h1>
+  <p class="hero-sub">
+    JWT-secured link shortener with real-time click analytics,<br>
+    expiry control, and rate limiting. Built for developers.
+  </p>
+
+  <!-- SHORTENER FORM -->
+  <div class="shorten-box">
+    <div class="input-row">
+      <input id="urlInput" class="url-input" type="url"
+        placeholder="https://your-long-url.com/paste/here" />
+      <button class="btn-shorten" id="shortenBtn" onclick="handleShorten()">
+        Shorten →
+      </button>
+    </div>
+    <div class="options-row">
+      <input id="customCode" class="opt-input" type="text"
+        placeholder="Custom code (optional)" maxlength="20" />
+      <input id="expireHours" class="opt-input" type="number"
+        placeholder="Expire in hours (optional)" min="1" />
+    </div>
+    <div class="result-box" id="resultBox">
+      <span class="result-url" id="resultUrl"></span>
+      <button class="btn-copy" id="copyBtn" onclick="copyResult()">Copy</button>
+    </div>
+    <div class="error-msg" id="errorMsg"></div>
+    <p class="login-note">
+      <a href="auth.html">Login</a> to save links to your dashboard & view analytics.
+    </p>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat"><div class="stat-num" id="statLinks">—</div><div class="stat-label">LINKS CREATED</div></div>
+    <div class="stat"><div class="stat-num" id="statClicks">—</div><div class="stat-label">TOTAL CLICKS</div></div>
+    <div class="stat"><div class="stat-num">301</div><div class="stat-label">REDIRECT TYPE</div></div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="section-label">// FEATURES</div>
+  <h2>Everything a dev needs.</h2>
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="feature-icon">🔐</div>
+      <h3>JWT Authentication</h3>
+      <p>Stateless token-based auth. bcrypt-hashed passwords. Every protected route validates claims automatically.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📊</div>
+      <h3>Click Analytics</h3>
+      <p>Per-day click breakdown, top referrers, IP + user-agent logging. Powered by MongoDB aggregation pipelines.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">⏱️</div>
+      <h3>Link Expiry</h3>
+      <p>Set expiry in hours. Expired links return HTTP 410 Gone — not a silent redirect to nowhere.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🚦</div>
+      <h3>Rate Limiting</h3>
+      <p>10 shortens per user per hour. Enforced server-side with correct 429 status codes.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">✏️</div>
+      <h3>Custom Codes</h3>
+      <p>Choose your own short code instead of auto-generated. Collisions are caught with 409 Conflict.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <h3>Fast Redirects</h3>
+      <p>Indexed MongoDB lookups. 301 permanent redirects. Click events logged async — zero latency on redirect.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 SnapLink — Built with Flask + MongoDB</p>
+  <p>Made by <a href="https://github.com/MananPathak02" style="color:var(--accent);text-decoration:none">Manan Pathak</a></p>
+</footer>
+
+<script>
+
+</script>
+</body>
+</html>
