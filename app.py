@@ -4,26 +4,26 @@ from routes.auth import auth_bp
 from routes.links import links_bp
 from routes.analytics import analytics_bp
 from routes.redirect import redirect_bp
+from dotenv import load_dotenv
 import os
+
+load_dotenv()
 
 def create_app():
     app = Flask(__name__)
 
-    # ── Config ──────────────────────────────────────────────
-    app.config["MONGO_URI"] = "mongodb+srv://mananpathak0052_db_user:YPC5vlNEWjqL57O4@cluster4.zjnpftw.mongodb.net/snaplink?retryWrites=true&w=majority"
-    app.config["JWT_SECRET_KEY"] = "very-long-random-secret-key"
+    # Config from .env
+    app.config["MONGO_URI"] = os.getenv("MONGO_URI")
+    app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY")
 
-    # ── Extensions ──────────────────────────────────────────
     mongo.init_app(app)
     jwt.init_app(app)
 
-    # # ── API Blueprints ───────────────────────────────────────
-    app.register_blueprint(auth_bp,      url_prefix="/auth")
-    app.register_blueprint(links_bp,     url_prefix="/links")
+    app.register_blueprint(auth_bp, url_prefix="/auth")
+    app.register_blueprint(links_bp, url_prefix="/links")
     app.register_blueprint(analytics_bp, url_prefix="/analytics")
-    app.register_blueprint(redirect_bp)  # handles /<short_code>
+    app.register_blueprint(redirect_bp)
 
-    # ── Serve HTML pages ─────────────────────────────────────
     @app.route("/")
     def home():
         return render_template("index.html")
